@@ -15,8 +15,10 @@ class Admin::ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if @product.save
+      flash[:notice] = "商品を追加しました。"
       redirect_to admin_product_path(@product)
     else
+      flash[:alert] = "商品を追加できませんでした。"
       render :new, status: :unprocessable_entity
     end
   end

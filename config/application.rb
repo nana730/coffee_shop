@@ -17,6 +17,10 @@ module Maruichicoffee
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w(assets tasks))
+    #ここ追加
+    config.assets.precompile += %w( application.css buttons.css )
+    config.assets.precompile += %w( application.css home.css )
+    config.assets.precompile += %w( application.css main.css )
 
     # Configuration for the application, engines, and railties goes here.
     #

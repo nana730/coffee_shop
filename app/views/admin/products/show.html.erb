@@ -34,9 +34,8 @@
 
         <!-- レーダーチャートのキャンバス -->
         <div style="display: flex; justify-content: center;">
-        <canvas id="product_<%= @product.id %>_radarChart" style="width: 250px; height: 250px;"></canvas>
+        <canvas id="product_<%= @product.id %>_radarChart" width="250" height="250"></canvas>
       </div>
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script>
         function renderRadarChart() {
           const productId = "<%= @product.id %>";
@@ -76,6 +75,7 @@
               data: data,
               options: {
                 responsive: false,
+                animation: false, // アニメーションを無効化
                 scales: {
                   r: {
                     suggestedMin: 0,

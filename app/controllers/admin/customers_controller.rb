@@ -1,6 +1,7 @@
 class Admin::CustomersController < ApplicationController
+  # ここを変更
   def index
-    @customers = Customer.preload(:orders).latest
+    @customers = Customer.includes(:orders).latest
   end
 
   def show
