@@ -1,0 +1,72 @@
+/* 共通のボタンスタイル */
+.btn {
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* カフェ風のボタン */
+.btn-coffee {
+  background-color: #7b3f00;
+  color: white;
+}
+
+.btn-coffee:hover {
+  background-color: #c44f2b;
+  transform: scale(1.1);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* グラデーションボタン */
+.btn-coffee-gradient {
+  background: linear-gradient(135deg, #a35d00, #7b3f00);
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-coffee-gradient:hover {
+  background: #603913;
+}
+
+/* アウトラインボタン */
+.btn-outline-brown {
+  border: 2px solid #7b3f00;
+  color: #7b3f00;
+  background-color: transparent;
+}
+
+.btn-outline-brown:hover {
+  background-color: #7b3f00;
+  color: white;
+}
+
+/* ドロップダウンのアクティブ状態 */
+.btn-outline-brown.active {
+  background-color: #7b3f00;
+  color: white;
+  border-color: #7b3f00;
+}
+
+/* 削除ボタン */
+.delete-btn {
+  background-color: transparent;
+  color: #dc3545;
+}
+
+.delete-btn:hover {
+  background-color: #dc3545;
+  color: white !important;
+}
+
+:root {
+  --coffee-brown: #7b3f00;
+  --coffee-dark: #170d0a;
+  --coffee-red: #dc3545;
+}
+
+.btn-coffee {
+  background-color: var(--coffee-brown);
+}
+

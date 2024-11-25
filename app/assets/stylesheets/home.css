@@ -1,0 +1,52 @@
+/* Heroセクション */
+.hero-section {
+  background: url('/assets/coffee-bean.jpg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  padding: 100px 20px;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero-section .btn-coffee {
+  background-color: #7b3f00;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px; /* 適切なパディング */
+  font-size: 1rem;
+  display: inline-block;  /* 横に広がらないように調整 */
+  white-space: nowrap;    /* テキストが折り返されないように */
+  transition: background-color 0.3s ease;
+}
+
+.hero-section .btn-coffee:hover {
+  background-color: #a35d00;
+}
+
+/* Aboutセクション */
+.about-section {
+  background-color: #fff;
+}
+
+.about-section h2 {
+  color: #7b3f00;
+  margin-bottom: 20px;
+}
+
+/* ホームページのみに影響を与えるホバー効果の無効化 */
+.home-page .card-img-top {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: none;
+}
+
+.home-page .card-img-top:hover {
+  transform: none; /* ホバー時に変化を起こさない */
+}
+

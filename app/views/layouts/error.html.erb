@@ -1,0 +1,15 @@
+# <strong>app/views/layouts/error.html.erb</strong>
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= content_for?(:title) ? yield(:title) : "ERROR" %></title>
+  <!-- その他のメタタグやスタイルシートのリンク -->
+</head>
+<body>
+  <!-- エラーメッセージやユーザーへの指示を含むページ固有のコンテンツ -->
+  <%= yield %>
+  
+  <!-- 共通のナビゲーションリンクやフッター（オプション） -->
+  <p class="top-page-link"><a href="/">ホームに戻る</a></p>
+</body>
+</html>

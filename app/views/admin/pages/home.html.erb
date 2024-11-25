@@ -1,0 +1,58 @@
+<main class="container flex-grow pt-5">
+  <!-- 今日のオーダー数とオーナー確認待ちオーダー数 -->
+  <div class="card order-card mb-4">
+    <div class="card-header text-center w-100 text-nowrap">
+      <h5>今日のオーダー数: <%= @today_total_orders %></h5>
+      <h5>オーナー確認待ち: <%= @waiting_orders %></h5>
+    </div>
+  </div>
+
+  <!-- 検索フォーム -->
+  <div class="card order-card mb-4">
+    <div class="card-header text-center">
+      <h5 class="mb-0">Order Status</h5>
+    </div>
+    <div class="card-body">
+      <%= form_with(url: admin_root_path, method: :get, local: true) do |f| %>
+        <div class="d-flex justify-content-center align-items-center">
+          <%= f.select :status, options_for_select(
+            [["すべて", nil], ["オーナー確認待ち", "オーナー確認待ち"], ["オーナー確認済み", "オーナー確認済み"]],
+            selected: @selected
+          ), { class: "form-select bg-light border-0 text-dark p-3" } %>
+          <%= f.submit "検索", class: "btn btn-custom ms-3 p-3", name: nil %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- 検索結果表示部分 -->
+  <div class="row">
+    <% @orders.each do |order| %>
+      <div class="col-md-3 mb-4"> <!-- 4列表示に変更 -->
+        <div class="card order-card shadow-sm">
+          <div class="card-header bg-brown-100 text-brown-700">
+            <strong>Order ID:</strong> <%= order.id %>
+          </div>
+          <div class="card-body">
+            <p><strong>名前:</strong> <%= order.customer.name %></p>
+            <p><strong>ステータス:</strong><%= status_badge(order.status) %></p>
+            <p><strong>メールアドレス:</strong> <%= order.customer.email %></p>
+            <p><strong>合計金額:</strong> <%= number_to_currency(order.total_amount, unit: "¥", strip_insignificant_zeros: true) %></p>
+            <p><strong>受注日:</strong> <%= l order.created_at, format: :short %></p>
+            
+            <div class="d-flex justify-content-end mt-3">
+              <%= link_to admin_order_path(order), class: "btn btn-outline-brown text-brown-700 border-2 btn-sm px-2 py-1" do %>
+                <i class="bi bi-file-earmark-text"></i> 詳細
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  
+  <!-- ページネーション -->
+  <div class="pagination justify-content-center mt-4">
+    <%= paginate @orders %>
+  </div>
+  

@@ -1,0 +1,51 @@
+<div class="mb-4 text-center">
+  <h2 class="h3 fw-bold">Customers</h2>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="card-body p-10 pr-4">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th class="text-start">名前</th>
+              <th class="text-start">メールアドレス</th>
+              <th class="text-center">注文回数</th>
+              <th class="text-center"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @customers.each do |customer| %>
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <p class="mb-0"><%= customer.name %></p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="mb-0"><%= customer.email %></p>
+                </td>
+                <td class="text-center">
+                  <span class="fw-semibold"><%= customer.orders.size %></span>
+                </td>
+                <td class="text-center">
+                  <%= link_to admin_customer_path(customer), class: "btn btn-outline-brown py-1 rounded-pill shadow-sm text-brown-700" do %>
+                    詳細
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .card {
+    max-width: none; /* max-widthの制限を解除 */
+  }
+</style>

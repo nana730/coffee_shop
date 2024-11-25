@@ -1,0 +1,32 @@
+<div class="mb-4 text-center">
+  <h2 class="display-5 fw-bold">ログイン</h2>
+</div>
+
+<div class="d-flex justify-content-center mb-4">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "col-12 col-md-8 col-lg-6" }, data: { turbo: false }) do |f| %>
+    <%= render "admin/shared/error_messages", resource: resource %>
+    
+    <!-- Email Field -->
+    <div class="mb-3">
+      <%= f.label :email, "メールアドレス", class: "form-label text-muted" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control border border-secondary rounded-2 shadow-sm", placeholder: "例: user@example.com" %>
+    </div>
+
+    <!-- Password Field -->
+    <div class="mb-4">
+      <%= f.label :password, "パスワード", class: "form-label text-muted" %>
+      <%= f.password_field :password, autocomplete: "current-password", class: "form-control border border-secondary rounded-2 shadow-sm", placeholder: "パスワードを入力" %>
+    </div>
+
+    <!-- Remember Me -->
+    <% if devise_mapping.rememberable? %>
+      <div class="form-check mb-4">
+        <%= f.check_box :remember_me, class: "form-check-input" %>
+        <%= f.label :remember_me, "ログイン状態を保持する", class: "form-check-label" %>
+      </div>
+    <% end %>
+
+    <!-- Submit Button -->
+    <%= f.submit 'ログイン', class: "btn btn-coffee w-100 text-white py-2 rounded-pill shadow" %>
+  <% end %>
+</div>

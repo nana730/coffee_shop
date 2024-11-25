@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Maruichi Coffee Roaster</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+
+  <!-- ページ全体の高さを保つスタイル -->
+  <style>
+    /* フッターをページの最下部に配置 */
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main {
+      flex: 1;
+    }
+  </style>
+</head>
+
+<body class="d-flex flex-column h-100 bg-light">
+  <!-- ヘッダー -->
+  <header class="mb-4 fixed-top" style="background-color: #3e2723;">
+    <div class="container d-flex justify-content-between align-items-center py-2">
+      <!-- ロゴ -->
+      <div class="logo">
+        <a href="/">
+          <%= image_tag 'navlogo.png', alt: 'アプリケーションロゴ', class: 'img-fluid', style: 'max-width: 80px;' %>
+        </a>
+      </div>
+
+      <!-- ナビゲーションバー -->
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <ul class="navbar-nav ml-auto d-flex align-items-center">
+            <% if admin_signed_in? %>
+              <!-- 管理者用メニュー -->
+              <li class="nav-item">
+                <%= link_to admin_root_path, class: "nav-link text-center", style: "color: #d7ccc8;" do %>
+                  <i class="bi bi-house-door" style="font-size: 1.5rem;"></i><br> <!-- アイコン -->
+                  受注一覧 <!-- テキスト -->
+                <% end %>
+                <li class="nav-item">
+                  <%= link_to admin_customers_path, class: "nav-link text-center", style: "color: #d7ccc8;" do %>
+                    <i class="bi bi-people" style="font-size: 1.5rem;"></i><br>
+                    顧客一覧
+                  <% end %>
+                </li>
+                </li>
+                <li class="nav-item">
+                <%= link_to admin_products_path, class: "nav-link text-center", style: "color: #d7ccc8;" do %>
+                  <i class="bi bi-box" style="font-size: 1.5rem;"></i><br> <!-- アイコンを変更 -->
+                  商品一覧
+                <% end %>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #d7ccc8;">
+                  ようこそ <%= current_admin.email %> さん
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <%= link_to '記事作成', admin_articles_path,  class: 'dropdown-item' %>
+                  </li>
+                  <li>
+                    <%= button_to 'Log out', destroy_admin_session_path, method: :delete, class: 'dropdown-item' %>
+                    </li>
+                </ul>
+              </li>
+            <% elsif customer_signed_in? %>
+              <!-- 顧客用メニュー -->
+              <li class="nav-item">
+                <%= link_to root_path, class: "nav-link text-center", style: "color: #d7ccc8;" do %>
+                  <i class="bi bi-house-door" style="font-size: 1.5rem;"></i><br>
+                  ホーム
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to cart_items_path, class: "nav-link text-center position-relative", style: "color: #d7ccc8;" do %>
+                <i class="bi bi-cart" style="font-size: 1.5rem;"></i><br>
+                カート
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    <%= total_quantity(current_customer.cart_items) %>
+                  </span>
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to products_path, class: "nav-link text-center", style: "color: #d7ccc8;" do %>
+                <i class="bi bi-box" style="font-size: 1.5rem;"></i><br>
+                商品一覧
+              <% end %>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #d7ccc8;">
+                  ようこそ <%= current_customer.name %> さん
+                </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                      <%= link_to 'アカウント設定', edit_customer_registration_path, class: "dropdown-item" %>
+                    </li>
+                    <li>
+                      <%= link_to '注文履歴', orders_path,class: 'dropdown-item' %>
+                    </li>
+                    <li>
+                      <%= button_to 'Log out', destroy_customer_session_path, method: :delete, class: 'dropdown-item' %>
+                    </li>
+                  </ul>
+                </li>
+            <% else %>
+<!-- サインイン / サインアップ -->
+        <li class="nav-item">
+          <%= link_to new_customer_registration_path, class: "nav-link text-center", style: "color: #d7ccc8;" do %>
+            <i class="bi bi-person-plus" style="font-size: 1.5rem;"></i><br>
+            Sign Up
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to new_customer_session_path, class: "nav-link text-center", style: "color: #d7ccc8;" do %>
+            <i class="bi bi-box-arrow-in-right" style="font-size: 1.5rem;"></i><br>
+            Log in
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+    </div>
+  </header>
+
+  <!-- メインコンテンツエリア -->
+  <main class="container flex-grow pt-5" style="margin-top: 80px; color: #5d4037;">
+    <% if flash[:notice].present? %>
+      <div class="alert alert-danger">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <% if flash[:alert].present? %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+    <%= yield %>
+  </main>
+
+  <!-- フッター -->
+  <footer class="text-center mt-6 py-4" style="background-color: #3e2723; color: #d7ccc8;">
+    <p class="mb-0">Copyright © Maruichi Coffee Roaster All Rights Reserved.</p>
+  </footer>
+</body>
+</html>

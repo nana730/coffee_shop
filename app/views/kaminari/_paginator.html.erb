@@ -1,0 +1,23 @@
+<nav>
+  <ul class="pagination justify-content-center">
+    <% if @items.prev_page %> <!-- @orders または @products -->
+      <li class="page-item">
+        <%= link_to raw(t('views.pagination.previous')), url_for(params.permit(:status, :page).merge(page: @items.prev_page)), class: 'page-link' %>
+      </li>
+    <% end %>
+
+    <!-- ページ番号 -->
+    <% (1..@items.total_pages).each do |page| %>
+      <li class="page-item <%= 'active' if page == @items.current_page %>">
+        <%= link_to page, url_for(params.permit(:status, :page).merge(page: page)), class: 'page-link' %>
+      </li>
+    <% end %>
+
+    <% if @items.next_page %> <!-- @orders または @products -->
+      <li class="page-item">
+        <%= link_to raw(t('views.pagination.next')), url_for(params.permit(:status, :page).merge(page: @items.next_page)), class: 'page-link' %>
+      </li>
+    <% end %>
+  </ul>
+</nav>
+
