@@ -1,24 +1,24 @@
 /* カードデザイン */
-.card {
+body .card {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.card-body {
+body .card-body {
   padding: 1rem;
 }
 
 /* タイトルや見出し */
-.text-brown-700 {
+body .text-brown-700 {
   color: #3a1e15;
   font-family: 'Noto Serif JP', serif;
   font-weight: 600;
 }
 
 /* .card-img-top */
-.card-img-top {
+body .card-img-top {
   width: 100%;
   height: 250px;
   object-fit: cover;
@@ -26,6 +26,6 @@
   transition: transform 0.3s ease;
 }
 
-.card-img-top:hover {
+body .card-img-top:hover {
   transform: scale(1.05);
 }

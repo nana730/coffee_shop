@@ -1,7 +1,6 @@
 class Customer::ProductsController < ApplicationController
   def index
     @products, @sort = get_products(params)
-    
     # すでに取得された@productsに対してEager Loadingを適用
     @products = @products.includes(image_attachment: :blob)
   end

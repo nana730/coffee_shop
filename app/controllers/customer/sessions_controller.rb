@@ -40,6 +40,6 @@ class Customer::SessionsController < Devise::SessionsController
 
   # ログアウト後に遷移するデフォルトのページ
   def after_sign_out_path_for(resource_or_scope)
-    new_customer_session_path 
+    root_path 
   end
 end

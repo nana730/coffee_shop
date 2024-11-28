@@ -58,9 +58,16 @@ class Customer::CartItemsController < ApplicationController
   end
 
   def destroy
-    @cart_item.destroy
-    redirect_to request.referer, notice: '商品を削除しました。', status: :see_other
+    if @cart_item.destroy
+      # 削除成功時
+      redirect_to request.referer, notice: '商品を削除しました。', status: :see_other
+    else
+      # 削除失敗時
+      flash[:alert] = '商品の削除に失敗しました。'
+      redirect_to request.referer || cart_items_path # 元の画面またはフォールバック
+    end
   end
+  
 
   private
 

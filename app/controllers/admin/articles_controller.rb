@@ -37,8 +37,15 @@ class Admin::ArticlesController < ApplicationController
 
     def destroy
       @article = Article.find(params[:id])
-      @article.destroy
-      redirect_to admin_articles_path, notice: '記事が削除されました'
+      
+      if @article.destroy
+        # 削除成功時
+        redirect_to admin_articles_path, notice: '記事が削除されました'
+      else
+        # 削除失敗時
+        flash[:alert] = '記事の削除に失敗しました'
+        redirect_to request.referer || admin_articles_path # 元のページまたは一覧ページに戻る
+      end
     end
 
     private

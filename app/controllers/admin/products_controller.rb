@@ -36,11 +36,18 @@ class Admin::ProductsController < ApplicationController
   end
 
   def destroy
-    @product.destroy
-  
-    respond_to do |format|
-      format.html { redirect_to admin_products_path, notice: "商品を削除しました", status: :see_other }
-      format.json { head :no_content }
+    if @product.destroy
+      respond_to do |format|
+        format.html { redirect_to admin_products_path, notice: "商品を削除しました", status: :see_other }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html do
+          flash[:alert] = "商品の削除に失敗しました"
+          redirect_to request.referer || admin_products_path # 元の画面に戻す
+        end
+      end
     end
   end
 
