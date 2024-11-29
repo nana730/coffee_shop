@@ -29,8 +29,10 @@ class Admin::ProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
+      flash[:notice] = "商品の内容を変更しました。"
       redirect_to admin_product_path(@product)
     else
+      flash[:alert] = "商品の変更に失敗しました。"
       render :edit
     end
   end
