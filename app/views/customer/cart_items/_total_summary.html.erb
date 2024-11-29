@@ -1,0 +1,18 @@
+<div class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <h3 class="card-title text-secondary mb-4">合計金額</h3>
+    <div class="d-flex justify-content-between mb-2">
+      <span>小計</span>
+      <span><%= number_to_currency(total_amount - postage, unit: "¥", precision: 0) %></span>
+    </div>
+    <div class="d-flex justify-content-between mb-2">
+      <span>送料</span>
+      <span><%= number_to_currency(postage, unit: "¥", precision: 0) %></span>
+    </div>
+    <div class="d-flex justify-content-between fw-bold">
+      <span>合計金額</span>
+      <span><%= number_to_currency(total_amount, unit: "¥", precision: 0) %></span>
+    </div>
+  </div>
+</div>
+

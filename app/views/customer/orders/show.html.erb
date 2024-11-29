@@ -1,0 +1,65 @@
+<div class="mb-5 text-center">
+  <h2 class="display-4 text-brown-700 fw-bold">Order</h2>
+  <p class="text-muted"><%= l @order.created_at, format: :short %></p>
+</div>
+
+<div class="container px-4">
+  <div class="row justify-content-center">
+    <!-- Order Details Section -->
+    <div class="col-lg-8">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title text-secondary mb-4">注文詳細</h3>
+          <% @order.order_items.each do |order_item| %>
+            <%= link_to product_path(order_item.product), class: "text-decoration-none" do %>
+              <div class="d-flex align-items-start mb-4">
+                <div class="me-4" style="width: 100px;">
+                  <%= image_tag order_item.product.image, class: "img-fluid rounded object-cover" %>
+                </div>
+                <div class="flex-grow-1">
+                  <h5 class="mb-2 text-dark"><%= order_item.product.name %></h5>
+                  <p class="text-muted mb-1">金額: <%= number_to_currency(order_item.price, unit: "¥", precision: 0) %></p>
+                  <p class="text-muted mb-1">数量: <%= order_item.quantity %></p>
+                  <p class="text-muted mb-1">豆の状態: <%= t("enums.cart_item.bean_state.#{order_item.bean_state}") %></p>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <%= render partial: "customer/cart_items/total_summary", locals: { 
+        total_amount: @order.total_amount, 
+        postage: @order.postage 
+      } %>
+    </div>
+  
+
+      <!-- Shipping Address -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title text-secondary mb-4">配送先情報</h3>
+          <p class="mb-1">名前: <span class="fw-semibold text-dark"><%= @order.name %></span></p>
+          <p class="mb-1">郵便番号: <span class="fw-semibold text-dark"><%= @order.postal_code %></span></p>
+          <p class="mb-1">都道府県: <span class="fw-semibold text-dark"><%= @order.prefecture %></span></p>
+          <p class="mb-1">住所: <span class="fw-semibold text-dark"><%= @order.address %></span></p>
+        </div>
+      </div>
+
+      <!-- Order Status -->
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title text-secondary mb-4">注文状況</h3>
+          <p>現在の注文状況: <span><%= status_badge(@order.status) %></span></p>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="text-center mt-4">
+  <%= link_to '戻る', orders_path, class: 'btn btn-brown text-white px-4 py-2' %>
+</div>
+

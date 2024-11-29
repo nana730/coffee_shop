@@ -1,0 +1,87 @@
+<!-- Hero Section -->
+<div class="hero-section text-center" style="padding: 100px 20px;">
+  <h1 class="display-4 fw-bold mb-4">Welcome, Maruichi Coffee Roaster</h1>
+  <p class="lead mb-4">最高のコーヒーをお届けします。こだわりの一杯をお楽しみください。</p>
+</div>
+
+<!-- About Section -->
+<section class="about-section py-5 text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-4">Maruichi Coffee Roasterについて</h2>
+    <p class="lead mb-4">MaruichiCoffeeは、厳選された豆を使用し、丁寧に焙煎します。コーヒーを通じて、毎日の生活に彩りを加えます。あなただけの特別な一杯をお楽しみください。</p>
+  </div>
+</section>
+
+<!-- Menu Section -->
+<section class="menu-section bg-light py-5 text-center home-page">
+  <div class="container">
+    <h2 class="fw-bold mb-4">CONCEPT</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card">
+          <%= image_tag 'coffee-import.jpg', class: 'card-img-top', alt: 'コーヒー輸入' %>
+          <div class="card-body">
+            <h5 class="card-title">直接輸入</h5>
+            <p class="card-text">現地から豆を直接輸入しており、新鮮な豆を丁寧に焙煎します。</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <%= image_tag 'coffee-baisen.jpg', class: 'card-img-top', alt: 'コーヒー焙煎' %>
+          <div class="card-body">
+            <h5 class="card-title">厳選した豆</h5>
+            <p class="card-text">焙煎した豆を一粒一粒選別し、味の品質を落とさないようにしています。</p>
+          </div>
+        </div>
+      </div>
+    </div> <!-- row の終了タグ -->
+  </div> <!-- container の終了タグ -->
+</section>
+
+<!-- Product Section -->
+<section class="product-section bg-light py-5 text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-4">PRODUCTS</h2>
+    <p class="lead mb-4">厳選されたコーヒー豆の商品はこちら</p>
+    <%= link_to products_path, class: 'btn btn-coffee btn-lg px-4 py-2' do %>
+      <i class="bi bi-search"></i> 商品一覧
+    <% end %>
+  </div>
+</section>
+
+
+<!-- home.html.erb -->
+<section class="articles-section py-5 text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-4">NEWS</h2>
+
+    <div class="row">
+      <% @articles.first(3).each do |article| %>
+        <div class="col-md-4">
+          <div class="card">
+            <!-- 記事の画像をクリックすると詳細ページに移動 -->
+            <%= link_to article_path(article) do %>
+              <%= image_tag article.image, class: "card-img-top", alt: article.title if article.image.attached? %>
+            <% end %>
+            
+            <div class="card-body">
+              <!-- 記事のタイトル -->
+              <h5 class="card-title"><%= article.title %></h5>
+              <!-- 記事の作成日（年・月） -->
+              <p class="card-text text-muted"><%= article.created_at.strftime("%Y年 %m月") %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+      <!-- ニュース一覧リンク -->
+      <% if @articles.size > 3 %> <!-- 記事が3件以上の場合にリンクを表示 -->
+        <div class="mt-4 text-end">
+          <%= link_to 'ニュース一覧を見る', articles_path, class: 'btn btn-outline-secondary' %>
+        </div>
+      <% end %>
+  </div>
+</section>
+

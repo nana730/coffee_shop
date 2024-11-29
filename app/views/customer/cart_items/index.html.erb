@@ -1,0 +1,53 @@
+<div class="mb-6 text-center">
+  <h2 class="display-4 text-brown-700 fw-bold">Cart</h2>
+</div>
+
+<% if @cart_items.count == 0 %>
+  <div class="text-center">カートに商品がありません。</div>
+  <div class="d-flex justify-content-center mt-4">
+    <%= link_to '商品を探す', products_path, class: 'btn btn-primary btn-lg bg-gradient' %>
+  </div>
+<% else %>
+  <div class="row">
+    <% @cart_items.each do |cart_item| %>
+      <div class="col-md-4">
+        <%= render partial: "customer/cart_items/cart_item", locals: { cart_item: cart_item } %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-lg-4">
+    <%= render partial: "customer/cart_items/total_summary", locals: { 
+      total_amount: @total_price + 500, 
+      postage: 500 
+    } %>
+  </div>
+
+  <!-- 注文情報入力フォーム -->
+  <h2 class="mt-5">配送先情報</h2>
+  <%= form_with model: @order, url: orders_path, scope: :order, local: true do |f| %>
+    <%= render "customer/shared/error_messages", resource: @order %>
+    <div class="mt-4">
+      <%= f.label :name, "お名前", class: "form-label" %>
+      <%= f.text_field :name, class: "form-control", placeholder: "フルネーム(漢字)で入力してください" %>
+
+      <%= f.label :postal_code, "郵便番号", class: "form-label mt-2" %>
+      <%= f.text_field :postal_code, class: "form-control", placeholder: "例: 123-4567" %>
+
+      <%= f.label :prefecture, "都道府県", class: "form-label mt-2" %>
+      <%= f.text_field :prefecture, class: "form-control", placeholder: "例: 東京都" %>
+
+      <%= f.label :address, "住所", class: "form-label mt-2" %>
+      <%= f.text_field :address, class: "form-control", placeholder: "千代田区一番町17-6 一番町ビル8F" %>
+    </div>
+
+    <!-- ボタン -->
+    <div class="d-flex justify-content-center mt-4">
+      <%= link_to products_path, class: "btn btn-outline-secondary w-25 py-2 rounded-pill shadow-lg mx-2" do %>
+        <i class="bi bi-arrow-left"></i> 戻る
+      <% end %>
+
+      <%= f.submit "注文する", class: "btn btn-coffee w-25 text-white py-2 rounded-pill shadow-lg mx-2" %>
+    </div>
+  <% end %>
+<% end %>

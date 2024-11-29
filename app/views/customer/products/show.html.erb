@@ -1,0 +1,156 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <!-- 商品画像 -->
+    <div class="col-md-6">
+      <%= image_tag @product.image, class: "img-fluid rounded shadow-sm mb-4" %>
+    </div>
+
+    <!-- 商品情報 -->
+    <div class="col-md-6">
+      <div class="p-4 border rounded bg-light shadow-sm">
+        <!-- 商品名 -->
+        <h3 class="text-coffee mb-3">【商品名】<%= @product.name %></h3>
+
+        <!-- グラム数と金額を横並びに -->
+        <div class="d-flex justify-content-end align-items-center mb-3">
+        <div class="me-3">
+          <p class="mb-0"><strong>グラム:</strong> 50g</p>
+        </div>
+        <div>
+          <p class="fw-bold mb-0" style="font-size: 1.5rem;">
+            <%= number_to_currency(@product.price, unit: "¥", strip_insignificant_zeros: true) %>
+          </p>
+        </div>
+      </div>
+
+      <!-- 商品説明 -->
+      <div class="mb-4">
+        <p class="text-muted mb-3"><strong>商品説明:</strong></p>
+        <div class="border p-3 bg-light shadow-sm">
+          <p class="text-muted"><%= @product.description %></p>
+        </div>
+      </div>
+      
+
+        <!-- レーダーチャートのキャンバス -->
+        <div style="display: flex; justify-content: center;">
+        <canvas id="product_<%= @product.id %>_radarChart" style="width: 250px; height: 250px;"></canvas>
+      </div>
+      <script>
+        function renderRadarChart() {
+          const productId = "<%= @product.id %>";
+          const canvasElement = document.getElementById(`product_${productId}_radarChart`);
+      
+          if (canvasElement) {
+            const ctx = canvasElement.getContext("2d");
+      
+            // 各商品に対して個別のインスタンスを保持する
+            window.chartInstances = window.chartInstances || {};
+      
+            // 既存のチャートインスタンスを個別に破棄
+            if (window.chartInstances[productId]) {
+              window.chartInstances[productId].destroy();
+            }
+      
+            const data = {
+              labels: ["酸味", "苦味", "甘味", "香り", "コク"],
+              datasets: [{
+                label: "商品評価",
+                data: [
+                  <%= @product.acidity %>,
+                  <%= @product.bitterness %>,
+                  <%= @product.sweetness %>,
+                  <%= @product.aroma %>,
+                  <%= @product.body %>
+                ],
+                backgroundColor: "rgba(123, 63, 0, 0.3)",
+                borderColor: "#7b3f00",
+                borderWidth: 2
+              }]
+            };
+      
+            // 新しいインスタンスを生成し、保持する
+            window.chartInstances[productId] = new Chart(ctx, {
+              type: "radar",
+              data: data,
+              options: {
+                responsive: false,
+                animation: false, // アニメーションを無効化
+                scales: {
+                  r: {
+                    suggestedMin: 0,
+                    suggestedMax: 5,
+                    ticks: {
+                      stepSize: 1
+                    }
+                  }
+                }
+              }
+            });
+          }
+        }
+      
+        // Chart.jsがロードされているか確認してから実行
+        document.addEventListener("turbo:load", () => {
+          if (typeof Chart !== "undefined") {
+            renderRadarChart();
+          } else {
+            // Chart.jsのロード待機
+            const script = document.createElement("script");
+            script.src = "https://cdn.jsdelivr.net/npm/chart.js@4.4.6";
+            script.onload = renderRadarChart;
+            document.head.appendChild(script);
+          }
+        });
+      </script>
+
+        
+        <!-- 在庫情報 -->
+        <p class="mb-4">
+          <% if @product.stock > 0 %>
+            <span class="badge bg-success">在庫あり (<%= @product.stock %>)</span>
+          <% else %>
+            <span class="badge bg-danger">在庫なし</span>
+          <% end %>
+        </p>
+      </div>
+    </div>
+
+    <% if @product.stock > 0 %>
+    <%= form_with model: @cart_item, url: cart_items_path, local: true do |f| %>
+      <%= f.hidden_field :product_id, value: @product.id %>
+  
+      <!-- 数量、豆の状態、カートに追加ボタンを横並び -->
+      <div class="mt-4 d-flex justify-content-end align-items-center gap-3">
+        <!-- 数量 -->
+        <div class="d-flex align-items-center gap-2">
+          <%= f.label :quantity, "数量", class: "form-label me-2" %>
+          <%= f.number_field :quantity, value: 1, min: 1, class: "form-control", style: "width: 80px;" %>
+        </div>
+        
+        <!-- 豆の状態 -->
+        <div class="d-flex align-items-center gap-2">
+          <%= f.label :bean_state, "豆の状態", class: "form-label me-2" %>
+          <%= f.select :bean_state, CartItem.bean_states.keys.map { |state| [state.humanize, state] }, {}, class: 'form-control', style: 'width: 150px;' %>
+        </div>
+        
+        <!-- カートに追加ボタン -->
+        <button type="submit" class="btn btn-coffee d-flex align-items-center rounded-pill">
+          <i class="bi bi-cart-plus me-1"></i> カートに追加
+        </button>
+      </div>
+    <% end %>
+  <% else %>
+    <!-- 在庫がない場合 -->
+    <div class="mt-4 d-flex justify-content-center align-items-center">
+      <p class="text-danger mb-0">現在在庫がありません</p>
+    </div>
+  <% end %>
+  
+  <!-- 戻るボタンを画面の真ん中 -->
+  <div class="d-flex justify-content-center mt-4">
+    <%= link_to products_path, class: "btn btn-outline-secondary rounded-pill" do %>
+      <i class="bi bi-arrow-left"></i> 戻る
+    <% end %>
+  </div>
+  

@@ -1,0 +1,80 @@
+<div class="mb-6 text-center">
+  <h2 class="display-4 text-brown-700 fw-bold">Edit Product</h2>
+</div>
+
+<div class="d-flex flex-wrap justify-content-center">
+  <%= form_with model: @product, url: admin_product_path(@product), local: true, class: "col-12 col-md-10 col-lg-8", data: { turbo: false }  do |f| %>
+    <%= render "admin/shared/error_messages", resource: @product %>
+
+    <!-- 名前 -->
+    <div class="mb-4">
+      <%= f.label :name, class: "form-label text-muted" %>
+      <%= f.text_field :name, class: "form-control border border-secondary rounded-2 shadow-sm", placeholder: "商品名を入力してください" %>
+    </div>
+
+    <!-- 内容 -->
+    <div class="mb-4">
+      <%= f.label :description, class: "form-label text-muted" %>
+      <%= f.text_area :description, rows: "5", class: "form-control border border-secondary rounded-2 shadow-sm", placeholder: "商品の説明を入力してください" %>
+    </div>
+
+    <!-- 酸味 -->
+    <div class="mb-4">
+      <%= f.label :acidity, "酸味", class: "form-label text-muted" %>
+      <%= f.number_field :acidity, in: 1..5, class: "form-control border border-secondary rounded-2 shadow-sm", placeholder: "1から5のレベルで入力してください" %>
+    </div>
+
+    <!-- 苦味 -->
+    <div class="mb-4">
+      <%= f.label :bitterness, "苦味", class: "form-label text-muted" %>
+      <%= f.number_field :bitterness, in: 1..5, class: "form-control border border-secondary rounded-2 shadow-sm", placeholder: "1から5のレベルで入力してください" %>
+    </div>
+
+    <!-- 甘味 -->
+    <div class="mb-4">
+      <%= f.label :sweetness, "甘味", class: "form-label text-muted" %>
+      <%= f.number_field :sweetness, in: 1..5, class: "form-control border border-secondary rounded-2 shadow-sm", placeholder: "1から5のレベルで入力してください" %>
+    </div>
+
+    <!-- 香り -->
+    <div class="mb-4">
+      <%= f.label :aroma, "香り", class: "form-label text-muted" %>
+      <%= f.number_field :aroma, in: 1..5, class: "form-control border border-secondary rounded-2 shadow-sm", placeholder: "1から5のレベルで入力してください" %>
+    </div>
+
+    <!-- コク -->
+    <div class="mb-4">
+      <%= f.label :body, "コク", class: "form-label text-muted" %>
+      <%= f.number_field :body, in: 1..5, class: "form-control border border-secondary rounded-2 shadow-sm", placeholder: "1から5のレベルで入力してください" %>
+    </div>
+
+    <!-- 金額 -->
+    <div class="mb-4">
+      <%= f.label :price, class: "form-label text-muted" %>
+      <%= f.number_field :price, class: "form-control border border-secondary rounded-2 shadow-sm", placeholder: "金額を入力してください" %>
+    </div>
+
+    <!-- 在庫 -->
+    <div class="mb-4">
+      <%= f.label :stock, class: "form-label text-muted" %>
+      <%= f.number_field :stock, class: "form-control border border-secondary rounded-2 shadow-sm", placeholder: "在庫を入力してください" %>
+    </div>
+
+    <!-- 画像 -->
+    <div class="mb-4">
+      <%= f.label :image, class: "form-label text-muted" %>
+      <%= f.file_field :image, class: "form-control border border-secondary rounded-2 shadow-sm" %>
+    </div>
+
+    <!-- ボタン -->
+    <div class="d-flex justify-content-center mt-4">
+      <!-- Back Button -->
+      <%= link_to admin_product_path(@product), class: "btn btn-outline-secondary w-25 py-2 rounded-pill shadow-lg mx-2" do %>
+        <i class="bi bi-arrow-left"></i> 戻る
+      <% end %>
+
+      <!-- Update Button -->
+      <%= f.submit "更新する", class: "btn btn-coffee w-25 text-white py-2 rounded-pill shadow-lg mx-2" %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,32 @@
+<div class="mb-6 text-center">
+  <h4 class="display-6 text-brown-700 fw-bold"><%= @article.title %></h4>
+</div>
+
+<div class="d-flex flex-wrap justify-content-center">
+  <div class="col-12 col-md-10 col-lg-8 bg-light-brown p-4 rounded-2 shadow-lg">
+    <!-- 画像 -->
+    <% if @article.image.attached? %>
+      <div class="mb-4 text-center">
+        <%= image_tag @article.image, class: "img-fluid rounded shadow-sm", size: "300x300", alt: @article.title %>
+      </div>
+    <% end %>
+
+    <!-- 記事内容 -->
+    <div class="mb-4">
+      <h5 class="text-muted">内容</h5>
+      <p class="text-slate-700"><%= @article.description %></p>
+    </div>
+
+    <!-- 日付 -->
+    <div class="mb-4">
+      <h6 class="text-muted">
+        <span class="text-slate-700"><%= @article.created_at.strftime("%Y年 %m月") %></span>
+      </h6>
+    </div>
+
+<!-- 戻るリンク -->
+<div class="d-flex justify-content-center mt-4">
+  <%= link_to root_path, class: "btn btn-outline-secondary w-25 py-2 rounded-pill shadow-lg" do %>
+    <i class="bi bi-arrow-left"></i> 戻る
+  <% end %>
+</div>

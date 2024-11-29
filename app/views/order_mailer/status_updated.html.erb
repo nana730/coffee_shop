@@ -1,0 +1,48 @@
+<p><%= @customer.name %> 様,</p>
+
+<p>ご注文ありがとうございます</p>
+<p>以下の注文を承りました。</p>
+
+<h3>注文情報</h3>
+<ul>
+  <li>注文ID: <%= @order.id %></li>
+  <li>注文日時: <%= l @order.created_at, format: :short %></li>
+  <li>配送先: <%= @order.address %></li>
+</ul>
+
+<h3>注文内容</h3>
+<table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
+  <thead>
+    <tr style="background-color: #f9f9f9; text-align: left;">
+      <th style="border: 1px solid #ddd; padding: 8px;">商品名</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">金額</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">数量</th>
+      <th style="border: 1px solid #ddd; padding: 8px;">豆の状態</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.order_items.each do |order_item| %>
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+          <%= order_item.product.name %>
+        </td>
+        <td style="border: 1px solid #ddd; padding: 8px;">
+          <%= number_to_currency(order_item.price, unit: "¥", precision: 0) %>
+        </td>
+        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+          <%= order_item.quantity %>
+        </td>
+        <td style="border: 1px solid #ddd; padding: 8px;">
+          <%= t("enums.cart_item.bean_state.#{order_item.bean_state}") %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>合計金額</h3>
+<p><strong>小計:</strong> <%= number_to_currency(@order.subtotal, unit: "¥", precision: 0) %></p>
+<p><strong>送料:</strong> <%= number_to_currency(@order.postage, unit: "¥", precision: 0) %></p>
+<p><strong>合計:</strong> <%= number_to_currency(@order.total_amount, unit: "¥", precision: 0) %></p>
+
+<p>この度は当店をご利用いただきありがとうございます。発送まで今しばらくお待ちくださいませ。</p>
