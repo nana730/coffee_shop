@@ -89,15 +89,15 @@ Rails.application.configure do
   config.exceptions_app = self.routes
   
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: 'yourdomain.com' }
+  config.action_mailer.default_url_options = { host: 'maruichicafe.herokuapp.com', protocol: 'https'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587,
     domain: 'gmail.com',
     authentication: 'plain',
-    user_name: ENV['MAIL_USERNAME'],  # Herokuの環境変数を使用
-    password: ENV['MAIL_PASSWORD'],  # Herokuの環境変数を使用
+    user_name: ENV['GMAIL_USERNAME'],  # Herokuの環境変数を使用
+    password: ENV['GMAIL_PASSWORD'],  # Herokuの環境変数を使用
     enable_starttls_auto: true
   }
 end

@@ -8,11 +8,11 @@ Product.delete_all
 Article.delete_all
 p '==================== customer create ===================='
 begin
-  Customer.create!(name: "田中 一郎", email: "tanaka.ichiro@gmail.com", password: "111111")
-  Customer.create!(name: "山田 花子", email: "yamada.hanako@gmail.com", password: "111111")
-  Customer.create!(name: "佐藤 健", email: "sato.takeru@gmail.com", password: "111111")
-  Customer.create!(name: "斉藤 まさき", email: "saito.masaki@gmail.com", password: "111111")
-  Customer.create!(name: "鈴木 太郎", email: "suzuki.taro@gmail.com", password: "111111")
+  Customer.create!(name: "田中 一郎", email: "tanaka.ichiro@example.com", password: "111111")
+  Customer.create!(name: "山田 花子", email: "yamada.hanako@example.com", password: "111111")
+  Customer.create!(name: "佐藤 健", email: "sato.takeru@example.com", password: "111111")
+  Customer.create!(name: "斉藤 まさき", email: "saito.masaki@example.com", password: "111111")
+  Customer.create!(name: "鈴木 太郎", email: "suzuki.taro@example.com", password: "111111")
 rescue ActiveRecord::RecordInvalid => e
   puts "Failed to create Customer: #{e.record.errors.full_messages}"
 end
