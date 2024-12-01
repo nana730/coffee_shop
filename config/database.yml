@@ -82,3 +82,5 @@ production:
   database: cafe_production
   username: cafe
   password: <%= ENV["CAFE_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
+
