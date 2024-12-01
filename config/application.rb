@@ -18,9 +18,8 @@ module Maruichicoffee
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w(assets tasks))
     #ここ追加
-    config.assets.precompile += %w( application.css buttons.css )
-    config.assets.precompile += %w( application.css home.css )
-    config.assets.precompile += %w( application.css main.css )
+# config/application.rb
+config.assets.precompile += %w( application.css buttons.css home.css main.css )
 
     # Configuration for the application, engines, and railties goes here.
     #
