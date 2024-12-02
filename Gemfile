@@ -47,7 +47,7 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'kaminari'
 gem 'dotenv-rails'
-
+gem 'aws-sdk-s3'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
