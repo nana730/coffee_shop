@@ -15,7 +15,15 @@ class Admin::SessionsController < Devise::SessionsController
      # Deviseのデフォルト処理を呼び出す
      super
    end
+end
+
+def guest_login
+  guest_admin = Admin.find_or_create_by!(email: 'guest_admin@example.com') do |admin|
+    admin.password = SecureRandom.urlsafe_base64
   end
+  sign_in guest_admin
+  redirect_to admin_root_path, notice: 'ゲスト管理者としてログインしました。'
+end
   # GET /resource/sign_in
   # def new
   #   super
