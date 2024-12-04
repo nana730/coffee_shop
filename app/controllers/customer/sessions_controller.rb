@@ -16,16 +16,6 @@ class Customer::SessionsController < Devise::SessionsController
      super
    end
   end
-
-  def guest_login
-    guest_customer = Customer.find_or_create_by!(email: 'guest_customer@example.com') do |customer|
-      customer.password = SecureRandom.urlsafe_base64
-      customer.name = 'ゲストカスタマー'
-    end
-    sign_in guest_customer
-    redirect_to root_path, notice: 'ゲストカスタマーとしてログインしました。'
-  end
-
   # GET /resource/sign_in
   # def new
   #   super

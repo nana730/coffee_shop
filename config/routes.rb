@@ -22,16 +22,6 @@ Rails.application.routes.draw do
     resources :orders, only: %i[create show index]
     resources :articles, only: %i[index show]
   end
-
-  # 管理者用のゲストログインルート
-  devise_scope :admin do
-    post 'admins/guest_login', to: 'admin/sessions#guest_login'
-  end
-
-  # カスタマー用のゲストログインルート
-  devise_scope :customer do
-    post 'customers/guest_login', to: 'customer/sessions#guest_login'
-  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
