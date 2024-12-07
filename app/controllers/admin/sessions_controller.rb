@@ -37,7 +37,7 @@ end
     admin_root_path # Admin用のルート（/admin）
   end
 
-  def after_sign_out_path_for(resource_or_scope)
-    new_admin_session_path # ログイン画面
-  end
+  # def after_sign_out_path_for(resource_or_scope)
+  #   new_admin_session_path # ログイン画面
+  # end
 end
