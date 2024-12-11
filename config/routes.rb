@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :cart_items, only: %i[index create destroy update]
     resources :orders, only: %i[create show index]
     resources :articles, only: %i[index show]
+    resources :contacts, only: %i[new create]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

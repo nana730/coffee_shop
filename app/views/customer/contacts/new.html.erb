@@ -1,0 +1,47 @@
+<div class="container mt-5">
+  <h1 class="text-center mb-4">お問い合わせ</h1>
+
+  <% if @errors.present? %>
+    <div class="alert alert-danger">
+      <p>以下のエラーを修正してください:</p>
+      <ul>
+        <% @errors.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <%= form_with url: contacts_path, local: true do |f| %>
+        <div class="mb-3">
+          <%= f.label :name, "お名前", class: "form-label" %>
+          <%= f.text_field :name, name: "contact[name]", class: "form-control", value: params.dig(:contact, :name), placeholder: "例: 山田 太郎" %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :email, "メールアドレス", class: "form-label" %>
+          <%= f.email_field :email, name: "contact[email]", class: "form-control", value: params.dig(:contact, :email), placeholder: "example@example.com" %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :subject, "件名", class: "form-label" %>
+          <%= f.text_field :subject, name: "contact[subject]", class: "form-control", value: params.dig(:contact, :subject), placeholder: "件名を入力してください" %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :message, "お問い合わせ内容", class: "form-label" %>
+          <%= f.text_area :message, name: "contact[message]", class: "form-control", value: params.dig(:contact, :message), rows: 5, placeholder: "お問い合わせ内容を詳しくご記入ください" %>
+        </div>
+        <div class="d-grid mb-3">
+          <%= f.submit "送信", class: "btn btn-coffee w-100 text-white py-2 rounded-pill shadow" %>
+        </div>
+      <% end %>
+
+      <!-- 戻るボタン -->
+      <div class="d-flex justify-content-center mt-4 mb-3">
+      <%= link_to root_path, class: "btn btn-outline-secondary rounded-pill" do %>
+        <i class="bi bi-arrow-left"></i> 戻る
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
