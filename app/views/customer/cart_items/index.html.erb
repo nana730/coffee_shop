@@ -42,12 +42,15 @@
     </div>
 
     <!-- ボタン -->
-    <div class="d-flex justify-content-center mt-4">
+    <div class="d-flex justify-content-center mt-4 mb-3">
       <%= link_to products_path, class: "btn btn-outline-secondary w-25 py-2 rounded-pill shadow-lg mx-2" do %>
         <i class="bi bi-arrow-left"></i> 戻る
       <% end %>
 
-      <%= f.submit "注文する", class: "btn btn-coffee w-25 text-white py-2 rounded-pill shadow-lg mx-2" %>
+<%= button_tag type: "submit", class: "btn btn-coffee w-25 text-white py-2 rounded-pill shadow-lg mx-2" do %>
+  <i class="bi bi-check-circle"></i> 注文する
+<% end %>
+
     </div>
   <% end %>
 <% end %>

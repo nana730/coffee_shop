@@ -4,7 +4,7 @@ class Customer::CartItemsController < ApplicationController
   before_action :set_cart_items_and_total_price, only: %i[index update create]
 
   def index
-    @cart_items = current_customer.cart_items.includes(:product)
+    @cart_items = current_customer.cart_items.includes(:product).order(:created_at)
     @order = current_customer.orders.build # 注文のインスタンスを作成
     @total_price = @cart_items.sum(&:subtotal) # subtotalにアクセスするときもN+1を防げる
   end

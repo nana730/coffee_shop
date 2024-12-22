@@ -67,14 +67,14 @@
     </div>
 
     <!-- ボタンを均等に並べる -->
-    <div class="d-flex justify-content-center mt-4">
+    <div class="d-flex justify-content-center mt-4 mb-3">
       <!-- 戻るボタン -->
-      <%= link_to admin_products_path, class: "btn btn-outline-secondary w-45 py-2 rounded-pill shadow-lg" do %>
+      <%= link_to admin_products_path, class: "btn btn-outline-secondary w-45 py-2 rounded-pill shadow-lg mx-2" do %>
         <i class="bi bi-arrow-left"></i> 戻る
       <% end %>
 
       <!-- 作成ボタン -->
-      <%= f.submit "新規作成", class: "btn btn-coffee w-45 text-white py-2 rounded-pill shadow-lg" %>
+      <%= f.submit "新規作成", class: "btn btn-coffee w-45 text-white py-2 rounded-pill shadow-lg mx-2" %>
     </div>
   <% end %>
 </div>
