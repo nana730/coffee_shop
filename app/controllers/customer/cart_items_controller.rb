@@ -49,8 +49,6 @@ class Customer::CartItemsController < ApplicationController
     if @cart_item.update(cart_item_params)
       respond_to do |format|
         format.html { redirect_to cart_items_path, notice: "カートが更新されました" }
-        format.js { render partial: 'cart_items/cart_item', locals: { cart_item: @cart_item } } # For AJAX
-        format.turbo_stream # turbo_streamでJSのレスポンスを使用
       end
     else
       redirect_to cart_items_path, alert: "更新に失敗しました"
